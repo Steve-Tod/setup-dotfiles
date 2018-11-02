@@ -1,10 +1,13 @@
 # shadowsocks
 sudo apt-get install python-pip
 sudo pip install shadowsocks
-echo "alias ss_start='sudo ssserver -c ~/jiangzhenyu.json -d start'\nalias ss_stop='sudo ssserver -c ~/jiangzhenyu.json -d stop'" >> ~/.zshrc
+cp jiangzhenyu.json ~/jiangzhenyu.json
+echo "alias ss_start='sudo ssserver -c ~/jiangzhenyu.json -d start'
+alias ss_stop='sudo ssserver -c ~/jiangzhenyu.json -d stop'" >> ~/.zshrc
 source ~/.zshrc
 
 # libsodium
+cd
 wget https://download.libsodium.org/libsodium/releases/LATEST.tar.gz
 tar -xvf LATEST.tar.gz
 cd libsodium-stable
