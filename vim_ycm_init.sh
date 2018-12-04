@@ -10,3 +10,4 @@ cd ~/.vim/bundle/YouCompleteMe
 git submodule update --init --recursive
 ./install.py --clang-completer
 
+cp .ycm_extra_conf.py ~/.vim/
