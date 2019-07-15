@@ -4,10 +4,11 @@ cp ./.vimrc ~/.vimrc
 vim +PluginInstall +qall
 
 # ycm
-sudo apt-get install build-essential cmake
-sudo apt-get install python-dev python3-dev
+python -c "from utils import search_package_and_install; search_package_and_install(['build-essential', 'cmake', 'python-dev', 'python3-dev'])"
 cd ~/.vim/bundle/YouCompleteMe
 git submodule update --init --recursive
 ./install.py --clang-completer
 
 cp .ycm_extra_conf.py ~/.vim/
+
+cd -

@@ -1,5 +1,5 @@
 # shadowsocks
-sudo apt-get install python-pip
+python -c "from utils import search_package_and_install; search_package_and_install(['python-pip'])"
 sudo pip install shadowsocks
 cp jiangzhenyu.json ~/jiangzhenyu.json
 echo "alias ss_start='sudo ssserver -c ~/jiangzhenyu.json -d start'
