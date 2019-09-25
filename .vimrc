@@ -14,6 +14,7 @@ Plugin 'scrooloose/nerdtree'
 Plugin 'SirVer/ultisnips'
 Plugin 'honza/vim-snippets'
 Plugin 'Valloric/YouCompleteMe'
+Plugin 'christoomey/vim-tmux-navigator'
 call vundle#end()
 filetype plugin indent on
 
@@ -23,6 +24,8 @@ let g:ycm_confirm_extra_conf = 0  " 关闭重复打开提醒
 let g:ycm_python_binary_path = 'python3'  " 使用 python3 作为 python interpreter
 nnoremap <leader>gg :YcmCompleter GoToDefinitionElseDeclaration<CR>
 " 配置补全 you_complete_me 结束
+
+vnoremap <C-r> "hy:%s,<C-r>h,,gc<left><left><left>
 
 " UltiSnips
 " 插入模式下直接通过<C-z>键来触发UltiSnips的代码块补全
