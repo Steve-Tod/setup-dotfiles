@@ -11,10 +11,9 @@ call vundle#begin()
 Plugin 'VundleVim/Vundle.vim'
 Plugin 'dpelle/vim-LanguageTool'
 Plugin 'scrooloose/nerdtree'
-Plugin 'SirVer/ultisnips'
-Plugin 'honza/vim-snippets'
-Plugin 'Valloric/YouCompleteMe'
+" Plugin 'Valloric/YouCompleteMe'
 Plugin 'christoomey/vim-tmux-navigator'
+Plugin 'easymotion/vim-easymotion'
 call vundle#end()
 filetype plugin indent on
 
