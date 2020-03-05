@@ -1,0 +1,6 @@
+" YCM start
+let g:ycm_global_ycm_extra_conf = '~/.vim/.ycm_extra_conf.py'  " Default conf
+let g:ycm_confirm_extra_conf = 0  " close comfirmation
+let g:ycm_python_binary_path = 'python3'  " use python3 as python interpreter
+nnoremap <leader>gg :YcmCompleter GoToDefinitionElseDeclaration<CR>
+" YCM end

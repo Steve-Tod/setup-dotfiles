@@ -7,3 +7,4 @@ git submodule update --init --recursive
 ./install.py --clang-completer
 cp ../dotfiles/.ycm_extra_conf.py ~/.vim/
 cd -
+cat ycm_vim_conf_str.txt >> ~/.vimrc
