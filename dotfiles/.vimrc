@@ -1,7 +1,7 @@
 set encoding=utf-8
 set nocompatible             
 set fileformat=unix           
-set shiftwidth=2 | set expandtab 
+set shiftwidth=4 | set expandtab 
 syntax on
 set nu
 let NERDTreeShowHidden=1
