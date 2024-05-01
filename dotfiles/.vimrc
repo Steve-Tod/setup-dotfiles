@@ -13,10 +13,10 @@ Plugin 'dpelle/vim-LanguageTool'
 Plugin 'scrooloose/nerdtree'
 " Plugin 'Valloric/YouCompleteMe'
 Plugin 'christoomey/vim-tmux-navigator'
-Plugin 'easymotion/vim-easymotion'
-Plugin 'SirVer/ultisnips'
-Plugin 'Steve-Tod/vim-snippets'
-Plugin 'ervandew/supertab'
+" Plugin 'easymotion/vim-easymotion'
+" Plugin 'SirVer/ultisnips'
+" Plugin 'Steve-Tod/vim-snippets'
+" Plugin 'ervandew/supertab'
 call vundle#end()
 filetype plugin indent on
 
@@ -30,13 +30,13 @@ nnoremap <leader>gg :YcmCompleter GoToDefinitionElseDeclaration<CR>
 " make YCM compatible with UltiSnips (using supertab)
 let g:ycm_key_list_select_completion = ['<C-n>', '<Down>']
 let g:ycm_key_list_previous_completion = ['<C-p>', '<Up>']
-let g:SuperTabDefaultCompletionType = '<C-n>'
+" let g:SuperTabDefaultCompletionType = '<C-n>'
 " YCM end
 
 " better key bindings for UltiSnipsExpandTrigger
-let g:UltiSnipsExpandTrigger = "<tab>"
-let g:UltiSnipsJumpForwardTrigger = "<tab>"
-let g:UltiSnipsJumpBackwardTrigger = "<s-tab>"
-let g:snips_author = "Zhenyu Jiang"
-let g:snips_email = "stevetod98@gmail.com"
-let g:snips_github = "https://github.com/Steve-Tod"
+" let g:UltiSnipsExpandTrigger = "<tab>"
+" let g:UltiSnipsJumpForwardTrigger = "<tab>"
+" let g:UltiSnipsJumpBackwardTrigger = "<s-tab>"
+" let g:snips_author = "Zhenyu Jiang"
+" let g:snips_email = "stevetod98@gmail.com"
+" let g:snips_github = "https://github.com/Steve-Tod"
