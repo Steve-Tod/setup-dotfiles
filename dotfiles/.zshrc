@@ -94,3 +94,35 @@ source $ZSH/oh-my-zsh.sh
 # Example aliases
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
+
+# Function to compress video with audio
+compress_video() {
+    local input_file="$1"
+    local filename="${input_file:r}"
+    local extension="${input_file:e}"
+    local output_file="${filename}_compressed.${extension}"
+
+    ffmpeg -i "$input_file" -c:v libx264 "$output_file"
+}
+
+# Function to compress video without audio
+compress_video_muted() {
+    local input_file="$1"
+    local filename="${input_file:r}"
+    local extension="${input_file:e}"
+    local output_file="${filename}_compressed_muted.${extension}"
+
+    ffmpeg -i "$input_file" -c:v libx264 -an "$output_file"
+}
+
+extract_fps() {
+    local input_file="$1"
+    local target_fps="$2"
+    local dir_path=$(dirname "$input_file")
+    local filename=$(basename "$input_file" .${input_file##*.})
+    local extension="${input_file##*.}"
+    local folder="${dir_path}/${filename}_${target_fps}fps"
+
+    mkdir -p "$folder"
+    ffmpeg -i "$input_file" -filter:v fps=fps=$target_fps "${folder}/${filename}_%05d.jpg"
+}
