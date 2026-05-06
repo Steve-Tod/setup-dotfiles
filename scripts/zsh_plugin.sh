@@ -1,5 +1,12 @@
-git clone https://github.com/zsh-users/zsh-autosuggestions.git $ZSH_CUSTOM/plugins/zsh-autosuggestions
-git clone https://github.com/zsh-users/zsh-syntax-highlighting.git ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-syntax-highlighting
-#python -c "from utils import modify_zshrc; modify_zshrc(['git', 'zsh-autosuggestions', 'zsh-syntax-highlighting'])"
-cp ../dotfiles/.zshrc ~/.zshrc
-source ~/.zshrc
+#!/usr/bin/env bash
+
+if [ -n "${BASH_VERSION:-}" ]; then
+  script_path="${BASH_SOURCE[0]}"
+elif [ -n "${ZSH_VERSION:-}" ]; then
+  script_path="${(%):-%x}"
+else
+  script_path="$0"
+fi
+
+script_dir="$(cd -- "$(dirname -- "$script_path")" && pwd)"
+bash "$script_dir/setup.sh" zsh-plugins
