@@ -19,6 +19,34 @@ command_exists() {
   command -v "$1" >/dev/null 2>&1
 }
 
+zsh_install_command() {
+  if command_exists brew; then
+    printf 'brew install zsh\n'
+  elif command_exists apt-get; then
+    printf 'sudo apt-get update && sudo apt-get install -y zsh\n'
+  elif command_exists dnf; then
+    printf 'sudo dnf install -y zsh\n'
+  elif command_exists yum; then
+    printf 'sudo yum install -y zsh\n'
+  elif command_exists pacman; then
+    printf 'sudo pacman -S zsh\n'
+  elif command_exists apk; then
+    printf 'sudo apk add zsh\n'
+  else
+    printf 'sudo apt-get update && sudo apt-get install -y zsh\n'
+  fi
+}
+
+require_zsh() {
+  if command_exists zsh; then
+    return
+  fi
+
+  printf 'zsh is required before running this setup.\n' >&2
+  printf 'Copy and run: %s\n' "$(zsh_install_command)" >&2
+  exit 1
+}
+
 clone_if_missing() {
   local repo="$1"
   local target="$2"
@@ -123,17 +151,69 @@ install_tmux() {
   cp "$REPO_ROOT"/dotfiles/.tmux.* "$HOME"/
 }
 
-usage() {
-  cat <<'EOF'
-Usage: bash scripts/setup.sh [all|zsh|zsh-init|zsh-plugins|fzf|vim|tmux]
+set_default_shell_to_zsh() {
+  local current_shell
+  local zsh_path
 
-Without an argument, runs the full setup:
-  zsh -> zsh plugins -> fzf -> vim -> tmux
-EOF
+  log "Setting default shell to zsh"
+
+  zsh_path="$(command -v zsh)"
+  current_shell="${SHELL:-}"
+
+  if [[ "$current_shell" == "$zsh_path" || "${current_shell##*/}" == "zsh" ]]; then
+    printf 'Default shell already appears to be zsh: %s\n' "${current_shell:-$zsh_path}"
+    return
+  fi
+
+  if [[ -r /etc/shells ]] && ! grep -qxF "$zsh_path" /etc/shells; then
+    warn "$zsh_path is not listed in /etc/shells; chsh will usually reject it"
+    printf "Copy and run: echo '%s' | sudo tee -a /etc/shells\n" "$zsh_path"
+    printf "Then run: chsh -s '%s'\n" "$zsh_path"
+    return
+  fi
+
+  if ! command_exists chsh; then
+    warn "chsh is not available"
+    printf "Copy and run: chsh -s '%s'\n" "$zsh_path"
+    return
+  fi
+
+  if chsh -s "$zsh_path"; then
+    printf 'Default shell changed to: %s\n' "$zsh_path"
+  else
+    warn "could not change the default shell automatically"
+    printf "Copy and run: chsh -s '%s'\n" "$zsh_path"
+  fi
+}
+
+usage() {
+  printf '%s\n' \
+    'Usage: bash scripts/setup.sh [all|zsh|zsh-init|zsh-plugins|fzf|vim|tmux]' \
+    '' \
+    'Without an argument, runs the full setup:' \
+    '  zsh -> zsh plugins -> fzf -> vim -> tmux'
 }
 
 main() {
   local target="${1:-all}"
+
+  case "$target" in
+    -h|--help|help)
+      usage
+      return
+      ;;
+  esac
+
+  case "$target" in
+    all|zsh|zsh-init|zsh-plugins|fzf|vim|tmux)
+      ;;
+    *)
+      usage >&2
+      exit 1
+      ;;
+  esac
+
+  require_zsh
 
   case "$target" in
     all)
@@ -168,13 +248,11 @@ main() {
     tmux)
       install_tmux
       ;;
-    -h|--help|help)
-      usage
-      return
-      ;;
-    *)
-      usage >&2
-      exit 1
+  esac
+
+  case "$target" in
+    all|zsh|zsh-init)
+      set_default_shell_to_zsh
       ;;
   esac
 
