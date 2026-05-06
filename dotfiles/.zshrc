@@ -69,6 +69,10 @@ source $ZSH/oh-my-zsh.sh
 # User configuration
 
 # fzf shell integration
+if [ -d "$HOME/.fzf/bin" ]; then
+  export PATH="$HOME/.fzf/bin:$PATH"
+fi
+
 if command -v fzf >/dev/null 2>&1 && fzf --zsh >/dev/null 2>&1; then
   eval "$(fzf --zsh)"
 elif [ -f "$HOME/.fzf.zsh" ]; then
